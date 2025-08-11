@@ -1,0 +1,29 @@
+import allure
+import time
+
+
+def make_and_attach_screenshot(driver, timeout: int = 0, title: str = "Снимок экрана"):
+    if timeout > 0:
+        time.sleep(timeout)
+    base64_screenshot = driver.get_screenshot_as_base64()
+    allure.attach(
+        f'''
+        <head>
+        <meta charset="utf-8">
+        </head>
+        <body>
+        <img src='data:image/png;base64,{base64_screenshot}' style='width: 300px ; float: left;' />
+        </body>''',
+        name=title, attachment_type=allure.attachment_type.HTML)
+
+
+def attach_element_screenshot(element, title: str = "Скриншот элемента"):
+    allure.attach(
+        f'''
+        <head>
+        <meta charset="utf-8">
+        </head>
+        <body>
+        <img src='data:image/png;base64,{element.screenshot}' style='width: 200px ; float: left;' />
+        </body>''',
+        name=title, attachment_type=allure.attachment_type.HTML)

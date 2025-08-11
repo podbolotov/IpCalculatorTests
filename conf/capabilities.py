@@ -1,0 +1,19 @@
+import os
+from appium.options.android import UiAutomator2Options
+
+
+class ApplicationCapabilities:
+    @staticmethod
+    def get():
+        application_path = os.environ.get("APP_PATH") or os.path.realpath("./app-debug.apk")
+        application_capabilities = dict(
+            platformName='Android',
+            automationName='uiautomator2',
+            deviceName=os.environ.get("DEVICE_NAME") or 'Android 11',
+            appPackage='io.github.kaczmarek.ipcalculator',
+            # appActivity='IpCalculatorActivity',
+            app=application_path,
+            fullReset='true'
+        )
+        capabilities = UiAutomator2Options().load_capabilities(application_capabilities)
+        return capabilities
