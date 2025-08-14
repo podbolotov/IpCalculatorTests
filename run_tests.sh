@@ -30,9 +30,10 @@ echo "[ 🤖 Deleting old iterations from $PROJECT_ROOT/allure-results/... ]"
 rm -rf "$PROJECT_ROOT"/allure-results/*
 
 # Creating environments file
-APP_VERSION="1.0.0"
+APP_VERSION="2.0"
 touch "$PROJECT_ROOT"/allure-results/environment.properties
-echo "Application\ version=$APP_VERSION" >> "$PROJECT_ROOT"/allure-results/environment.properties
+echo "Application\ Version=$APP_VERSION" >> "$PROJECT_ROOT"/allure-results/environment.properties
+echo "Device=$DEVICE_NAME" >> "$PROJECT_ROOT"/allure-results/environment.properties
 
 
 RUN_SCOPE_WITH_PYTEST_ARGS="tests"

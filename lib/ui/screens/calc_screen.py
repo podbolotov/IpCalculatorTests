@@ -1,4 +1,9 @@
+from time import sleep
+
 from appium.webdriver.common.appiumby import AppiumBy
+from appium.webdriver.extensions.android.nativekey import AndroidKey
+from selenium.common import NoSuchElementException
+
 from lib.tools.element_finders import find_by_locator
 
 
@@ -30,6 +35,11 @@ class CalcScreenLocators:
     class IPInputContainer:
         type = AppiumBy.ANDROID_UIAUTOMATOR
         value = 'new UiSelector().resourceId("OctetTextFieldsWidget")'
+
+    # Titles
+    class CidrWindowTitle:
+        type = AppiumBy.XPATH
+        value = '//android.view.View[@resource-id="SubnetMaskListDialogWidget"]/android.widget.TextView'
 
     # Inputs
     class IPInputFirstOctet:
@@ -349,6 +359,11 @@ class CalcScreenLocators:
         value = '//android.view.View[@resource-id="ShareButton"]/android.widget.TextView'
 
 
+class ScrollDirections:
+    UP: str = 'вверх'
+    DOWN: str = 'вниз'
+
+
 class CalcScreenOperations:
 
     def __init__(self, driver):
@@ -363,36 +378,40 @@ class CalcScreenOperations:
             self,
             looked_object_locator,
             container_locator,
-            initial_direction = 'down'
+            initial_direction=ScrollDirections.DOWN
     ):
 
         self.driver.implicitly_wait(1)
 
         scroll_container_locator = container_locator
 
+        new_direction = ScrollDirections.DOWN
+
         scroll_down = f"new UiScrollable({scroll_container_locator.value}).scrollForward()"
         scroll_up = f"new UiScrollable({scroll_container_locator.value}).scrollBackward()"
 
-        print(f"\nНачинаем поиск элемента с id {looked_object_locator.value}.")
+        print(f"\n\033[1mНачат поиск элемента {looked_object_locator.__name__} в контейнере "
+              f"{scroll_container_locator.__name__}...\033[0m")
 
         def is_element_displayed(looked_object):
             state = False
             try:
-                state = (self.driver.find_element(looked_object.type, looked_object.value).is_displayed())
+                state = self.driver.find_element(looked_object.type, looked_object.value).is_displayed()
                 return state
-            except Exception as e:
-                ex = e
-                print("При запуске поиска элемент не отображается. ")
+            except NoSuchElementException:
+                print(
+                    f"- Сейчас элемент не отображается. Делаем свайп. Направление свайпа: {new_direction}.")
                 return state
 
         scroll_locator = scroll_down
 
-        if initial_direction == 'up':
+        if initial_direction == ScrollDirections.UP:
             scroll_locator = scroll_up
+            new_direction = ScrollDirections.UP
 
         tries = 1
         while not is_element_displayed(looked_object_locator):
-            print(f"Делаем свайп (попытка {tries})...")
+            print(f"-- Свайп (попытка {tries}).")
             self.driver.find_element(
                 by=AppiumBy.ANDROID_UIAUTOMATOR,
                 value=scroll_locator
@@ -400,20 +419,27 @@ class CalcScreenOperations:
             tries = tries + 1
             if tries == 4:
                 scroll_locator = scroll_up
-                if initial_direction == 'up':
+                new_direction = ScrollDirections.UP
+                if initial_direction == ScrollDirections.UP:
                     scroll_locator = scroll_down
-                print(f"Пробуем поменять направление на обратное...")
+                    new_direction = ScrollDirections.DOWN
+                print(f"\033[93mПробуем поменять свайпов направление на обратное. "
+                      f"Новое направление: {new_direction}.\033[0m")
             if tries == 7:
                 break
 
         if not is_element_displayed(looked_object_locator):
             self.driver.implicitly_wait(60)
-            raise RuntimeError(f"Элемент с id {looked_object_locator.value} найти не удалось.")
+            error_message = f"Элемент {looked_object_locator.__name__} найти не удалось."
+            print(error_message)
+            print("\033[91m" + "Операция поиска завершилась ошибкой." + "\033[0m")
+            raise RuntimeError(error_message)
         else:
             self.driver.implicitly_wait(60)
-            print(f"Элемент с id {looked_object_locator.value} найден.")
+            print(f"Элемент {looked_object_locator.__name__} найден.")
+            print("\033[92m" + "Операция поиска завершена успешно." + "\033[0m")
 
-    def enter_ip_address(self, address: str = "192.168.0.1", cidr: str = "24"):
+    def enter_ip_address(self, driver, address: str = "192.168.0.1/24"):
 
         ip, *cidr = address.split("/")
 
@@ -425,19 +451,40 @@ class CalcScreenOperations:
 
         oc1_input = self.find(CalcScreenLocators.IPInputFirstOctet)
         oc1_input.click()
-        oc1_input.send_keys(oc1)
+        # oc1_input.send_keys(oc1)
+
+        oc1_input.clear()
+        for digit in oc1:
+            digit_as_int = int(digit)
+            sleep(0.1)
+            driver.press_keycode(AndroidKey.__getattribute__(AndroidKey, f'DIGIT_{digit_as_int}'))
 
         oc2_input = self.find(CalcScreenLocators.IPInputSecondOctet)
         oc2_input.click()
-        oc2_input.send_keys(oc2)
+        # oc2_input.send_keys(oc2)
+        oc2_input.clear()
+        for digit in oc2:
+            digit_as_int = int(digit)
+            sleep(0.1)
+            driver.press_keycode(AndroidKey.__getattribute__(AndroidKey, f'DIGIT_{digit_as_int}'))
 
         oc3_input = self.find(CalcScreenLocators.IPInputThirdOctet)
         oc3_input.click()
-        oc3_input.send_keys(oc3)
+        # oc3_input.send_keys(oc3)
+        oc3_input.clear()
+        for digit in oc3:
+            digit_as_int = int(digit)
+            sleep(0.1)
+            driver.press_keycode(AndroidKey.__getattribute__(AndroidKey, f'DIGIT_{digit_as_int}'))
 
         oc4_input = self.find(CalcScreenLocators.IPInputFourthOctet)
         oc4_input.click()
-        oc4_input.send_keys(oc4)
+        # oc4_input.send_keys(oc4)
+        oc4_input.clear()
+        for digit in oc4:
+            digit_as_int = int(digit)
+            sleep(0.1)
+            driver.press_keycode(AndroidKey.__getattribute__(AndroidKey, f'DIGIT_{digit_as_int}'))
 
         cidr_locator = CalcScreenLocators.__getattribute__(CalcScreenLocators, f'Subnet{subnet}')
 
@@ -448,3 +495,54 @@ class CalcScreenOperations:
 
         subnet_list_item = self.find(cidr_locator)
         subnet_list_item.click()
+
+    def partial_fill_ip_address(self, driver, oc1=None, oc2=None, oc3=None, oc4=None, cidr=None):
+        """
+        Данный метод заполняет только те поля IP-адреса, которые были переданы.
+        """
+        if oc1:
+            oc1_input = self.find(CalcScreenLocators.IPInputFirstOctet)
+            oc1_input.click()
+            oc1_input.clear()
+            for digit in oc1:
+                digit_as_int = int(digit)
+                sleep(0.1)
+                driver.press_keycode(AndroidKey.__getattribute__(AndroidKey, f'DIGIT_{digit_as_int}'))
+
+        if oc2:
+            oc2_input = self.find(CalcScreenLocators.IPInputSecondOctet)
+            oc2_input.click()
+            oc2_input.clear()
+            for digit in oc2:
+                digit_as_int = int(digit)
+                sleep(0.1)
+                driver.press_keycode(AndroidKey.__getattribute__(AndroidKey, f'DIGIT_{digit_as_int}'))
+
+        if oc3:
+            oc3_input = self.find(CalcScreenLocators.IPInputThirdOctet)
+            oc3_input.click()
+            oc3_input.clear()
+            for digit in oc3:
+                digit_as_int = int(digit)
+                sleep(0.1)
+                driver.press_keycode(AndroidKey.__getattribute__(AndroidKey, f'DIGIT_{digit_as_int}'))
+
+        if oc4:
+            oc4_input = self.find(CalcScreenLocators.IPInputFourthOctet)
+            oc4_input.click()
+            oc4_input.clear()
+            for digit in oc4:
+                digit_as_int = int(digit)
+                sleep(0.1)
+                driver.press_keycode(AndroidKey.__getattribute__(AndroidKey, f'DIGIT_{digit_as_int}'))
+
+        if cidr:
+            cidr_locator = CalcScreenLocators.__getattribute__(CalcScreenLocators, f'Subnet{cidr}')
+
+            cidr_button = self.find(CalcScreenLocators.CIDRButton)
+            cidr_button.click()
+
+            self.scroll_to_list_item(cidr_locator, CalcScreenLocators.CidrListContainer)
+
+            subnet_list_item = self.find(cidr_locator)
+            subnet_list_item.click()

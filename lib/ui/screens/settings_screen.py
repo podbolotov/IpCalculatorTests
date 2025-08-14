@@ -42,9 +42,11 @@ class SettingsScreenOperations:
                 locale_button.click()
 
             case AvailableLocales.KK:
-
                 locale_button = self.find(SettingsScreenLocators.LocaleKkRadioButton)
                 locale_button.click()
+
+            case AvailableLocales.DEFAULT:
+                print("\nЛокализация не будет изменена, запрошено использование локализации по умолчанию.")
 
             case _:
                 raise ValueError("Недопустимая локализация")

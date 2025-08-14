@@ -9,8 +9,8 @@ from lib.ui.components.bottom_navigation_bar import BottomNavbarOperations
 from lib.ui.screens.settings_screen import SettingsScreenOperations
 
 
-@pytest.fixture(scope="module")
-@allure.title("Драйвер Appium")
+@pytest.fixture(scope="class")
+@allure.title("Запуск драйвера Appium")
 def appium_driver():
     """
     Данная фикстура предоставляет драйвер для взаимодействия с мобильным приложением
@@ -25,14 +25,14 @@ def appium_driver():
     driver.quit()
 
 
-@pytest.fixture(scope="module")
-@allure.title("Локализации")
-def locales(appium_driver, request):
-    current_locale = AvailableLocales.EN
+@pytest.fixture(scope="class")
+@allure.title("Загрузка локализаций")
+def localized_strings(appium_driver, request):
+    current_locale = AvailableLocales.DEFAULT
     try:
         current_locale = request.param
     except Exception as e:
-        print(f"Locale fixture wasn't parametrized! EN locale will be used ({e})")
+        print(f"Locale fixture wasn't parametrized! DEFAULT locale will be used ({e})")
 
     bnb = BottomNavbarOperations(appium_driver)
     bnb.open_settings_screen()
@@ -48,3 +48,21 @@ def locales(appium_driver, request):
     localized_strings = ls.return_localized_resources(locale=current_locale)
 
     return localized_strings
+
+
+@pytest.fixture(scope="function")
+@allure.title("Перезапуск приложения перед тестом")
+def restart_before(appium_driver, request):
+    appium_driver.terminate_app(appium_driver.capabilities['appPackage'])
+    appium_driver.activate_app(appium_driver.capabilities['appPackage'])
+    allure.attach("Приложение перезапускается перед началом этого теста.")
+    yield
+
+
+@pytest.fixture(scope="function")
+@allure.title("Перезапуск приложения после теста")
+def restart_after(appium_driver, request):
+    yield
+    appium_driver.terminate_app(appium_driver.capabilities['appPackage'])
+    appium_driver.activate_app(appium_driver.capabilities['appPackage'])
+    allure.attach("Приложение перезапускается после окончания этого теста.")

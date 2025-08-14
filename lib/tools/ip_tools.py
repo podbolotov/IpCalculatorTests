@@ -5,18 +5,6 @@ from collections import namedtuple
 from lib.data.localized_strings import LocalizedStrings
 
 
-def generate_valid_ip_without_cidr() -> str:
-    oc1 = random.randint(0, 255)
-    oc2 = random.randint(0, 255)
-    oc3 = random.randint(0, 255)
-    oc4 = random.randint(0, 255)
-
-    generated_ip_without_cidr = f"{oc1}.{oc2}.{oc3}.{oc4}"
-    print("\nСгенерирован адрес:", generated_ip_without_cidr)
-
-    return generated_ip_without_cidr
-
-
 def generate_valid_ip_with_cidr() -> str:
     oc1 = random.randint(0, 255)
     oc2 = random.randint(0, 255)
@@ -29,6 +17,31 @@ def generate_valid_ip_with_cidr() -> str:
     print("\nСгенерирован адрес:", generated_ip_with_cidr)
 
     return generated_ip_with_cidr
+
+
+def generate_valid_ip(
+        oc1: str = None,
+        oc2: str = None,
+        oc3: str = None,
+        oc4: str = None,
+        cidr: str = None,
+        generate_cidr: bool = True
+) -> str:
+    oc1 = oc1 or random.randint(0, 255)
+    oc2 = oc2 or random.randint(0, 255)
+    oc3 = oc3 or random.randint(0, 255)
+    oc4 = oc4 or random.randint(0, 255)
+
+    if generate_cidr:
+        cidr = cidr or random.randint(0, 32)
+        generated_ip = f"{oc1}.{oc2}.{oc3}.{oc4}/{cidr}"
+    else:
+        generated_ip = f"{oc1}.{oc2}.{oc3}.{oc4}"
+
+    print('\n\n\033[1mПроизведена генерация IP-адреса\033[0m')
+    print("Сгенерирован адрес:", generated_ip)
+
+    return generated_ip
 
 
 def ip_calculator(ip, locale=LocalizedStrings.EN):
@@ -66,6 +79,7 @@ def ip_calculator(ip, locale=LocalizedStrings.EN):
     if total_addresses >= 3:
         last_host = net[-2]
 
+    print('\n\033[1mПроизведено локальное вычисление IP-сети\033[0m')
     print('IP адрес:', ip_address)
     print('CIDR нотация:', cidr)
     print('Маска подсети:', network_mask)
@@ -75,7 +89,7 @@ def ip_calculator(ip, locale=LocalizedStrings.EN):
     print('Всего адресов:', total_addresses)
     print('Рабочих узлов:', total_hosts)
     print('Первый хост:', first_host)
-    print('Последний хост:', last_host)
+    print('Последний хост:', last_host, '\n')
 
     calculated_network = namedtuple(
         'Network', ['ip_address', 'cidr', 'network_mask', 'wildcard_mask', 'network_address',
