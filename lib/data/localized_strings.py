@@ -34,6 +34,12 @@ class LocalizedStrings:
         calculator_cidr_prefix = "CIDR notation"
         calculator_no_data = "No data"
 
+        info_share_app = "Share the app"
+        info_app_rate = "Rate the app"
+        info_send_email = "Contact the developer"
+        info_privacy_policy = "Read privacy policy"
+        info_go_to_github = "Open GitHub page"
+
         settings_language = "Language"
         settings_theme = "Theme"
         settings_theme_system = "System"
@@ -65,6 +71,12 @@ class LocalizedStrings:
         calculator_cidr_prefix = "CIDR нотация"
         calculator_no_data = "Нет данных"
 
+        info_share_app = "Поделиться приложением"
+        info_app_rate = "Оценить приложение"
+        info_send_email = "Связаться с разработчиком"
+        info_privacy_policy = "Прочитать политику конфиденциальности"
+        info_go_to_github = "Открыть страницу на Github"
+
         settings_language = "Язык"
         settings_theme = "Тема"
         settings_theme_system = "Системная"
@@ -95,6 +107,12 @@ class LocalizedStrings:
         calculator_ip_address = "IP мекенжай"
         calculator_cidr_prefix = "CIDR жазылымы"
         calculator_no_data = "Деректер жоқ"
+
+        info_share_app = "Қосымшамен бөлісу"
+        info_app_rate = "Қосымшаны бағалау"
+        info_send_email = "Әзірлеушімен байланысу"
+        info_privacy_policy = "Құпиялық саясатын оқу"
+        info_go_to_github = "Github сілтемесіне өту"
 
         settings_language = "Тіл"
         settings_theme = "Кейіп"
