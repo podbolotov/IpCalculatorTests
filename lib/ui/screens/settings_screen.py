@@ -7,6 +7,29 @@ from lib.tools.element_finders import find_by_locator
 class SettingsScreenLocators:
     """ Данный класс содержит локаторы компонентов экрана "Настройки". """
 
+    # Title
+    class ThemeSettingsSectionTitle:
+        type = AppiumBy.ANDROID_UIAUTOMATOR
+        value = 'new UiSelector().resourceId("ThemeHeadlineItem")'
+
+    class LanguageSettingsSectionTitle:
+        type = AppiumBy.ANDROID_UIAUTOMATOR
+        value = 'new UiSelector().resourceId("LanguageHeadlineItem")'
+
+    # Theme Radio Buttons
+    class ThemeSystemRadioButton:
+        type = AppiumBy.ANDROID_UIAUTOMATOR
+        value = 'new UiSelector().resourceId("ThemeRadioGroupSystemRadioOption")'
+
+    class ThemeDarkRadioButton:
+        type = AppiumBy.ANDROID_UIAUTOMATOR
+        value = 'new UiSelector().resourceId("ThemeRadioGroupDarkRadioOption")'
+
+    class ThemeLightRadioButton:
+        type = AppiumBy.ANDROID_UIAUTOMATOR
+        value = 'new UiSelector().resourceId("ThemeRadioGroupLightRadioOption")'
+
+    # Locale Radio Buttons
     class LocaleEnRadioButton:
         type = AppiumBy.ANDROID_UIAUTOMATOR
         value = 'new UiSelector().resourceId("LocaleRadioGroupEnglishRadioOption")'

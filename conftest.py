@@ -66,3 +66,11 @@ def restart_after(appium_driver, request):
     appium_driver.terminate_app(appium_driver.capabilities['appPackage'])
     appium_driver.activate_app(appium_driver.capabilities['appPackage'])
     allure.attach("Приложение перезапускается после окончания этого теста.")
+
+
+@pytest.fixture(scope="function")
+@allure.title("Открыть экран «Настройки»")
+def open_settings_screen(appium_driver, bottom_navigation_bar, request):
+    allure.attach("Приложение открывает экран «Настройки» перед началом этого теста", "Описание предусловия")
+    bottom_navigation_bar.open_settings_screen()
+    yield

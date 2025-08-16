@@ -34,6 +34,12 @@ class LocalizedStrings:
         calculator_cidr_prefix = "CIDR notation"
         calculator_no_data = "No data"
 
+        settings_language = "Language"
+        settings_theme = "Theme"
+        settings_theme_system = "System"
+        settings_theme_dark = "Dark"
+        settings_theme_light = "Light"
+
     class RU:
         LANG = "RU"
 
@@ -59,6 +65,12 @@ class LocalizedStrings:
         calculator_cidr_prefix = "CIDR нотация"
         calculator_no_data = "Нет данных"
 
+        settings_language = "Язык"
+        settings_theme = "Тема"
+        settings_theme_system = "Системная"
+        settings_theme_dark = "Тёмная"
+        settings_theme_light = "Светлая"
+
     class KK:
         LANG = "KK"
 
@@ -83,6 +95,12 @@ class LocalizedStrings:
         calculator_ip_address = "IP мекенжай"
         calculator_cidr_prefix = "CIDR жазылымы"
         calculator_no_data = "Деректер жоқ"
+
+        settings_language = "Тіл"
+        settings_theme = "Кейіп"
+        settings_theme_system = "Жүйелік"
+        settings_theme_dark = "Қараңғы"
+        settings_theme_light = "Жарық"
 
     def return_localized_resources(self, locale: AvailableLocales):
         match locale:
