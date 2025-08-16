@@ -1,8 +1,10 @@
 from enum import Enum, auto
 
 from appium.webdriver.common.appiumby import AppiumBy
+from selenium.common import NoSuchElementException
 
 from lib.tools.element_finders import find_by_locator
+from lib.tools.screenshotter import make_and_attach_screenshot
 
 
 class NavigationButtons(Enum):
@@ -43,9 +45,13 @@ class BottomNavbarOperations:
         self.driver = driver
 
     def find(self, locator):
-        element = find_by_locator(self.driver, locator)
-        element.screenshot = element.screenshot_as_base64
-        return element
+        try:
+            element = find_by_locator(self.driver, locator)
+            element.screenshot = element.screenshot_as_base64
+            return element
+        except NoSuchElementException as error:
+            make_and_attach_screenshot(self.driver)
+            raise error
 
     def _navigation_click(self, button: NavigationButtons):
         match button:
