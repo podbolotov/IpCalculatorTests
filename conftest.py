@@ -5,6 +5,7 @@ from lib.data.localized_strings import AvailableLocales, LocalizedStrings
 from appium import webdriver
 import os
 
+from lib.data.non_translatable_strings import NonTranslatableStrings
 from lib.ui.components.bottom_navigation_bar import BottomNavbarOperations
 from lib.ui.screens.settings_screen import SettingsScreenOperations
 
@@ -48,6 +49,12 @@ def localized_strings(appium_driver, request):
     localized_strings = ls.return_localized_resources(locale=current_locale)
 
     return localized_strings
+
+
+@pytest.fixture(scope="class")
+@allure.title("Загрузка непереводимых строк")
+def non_translatable_strings(appium_driver):
+    return NonTranslatableStrings
 
 
 @pytest.fixture(scope="function")

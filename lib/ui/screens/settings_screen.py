@@ -21,26 +21,50 @@ class SettingsScreenLocators:
         type = AppiumBy.ANDROID_UIAUTOMATOR
         value = 'new UiSelector().resourceId("ThemeRadioGroupSystemRadioOption")'
 
+    class ThemeSystemRadioButtonLabel:
+        type = AppiumBy.XPATH
+        value = '//android.view.View[@resource-id="ThemeRadioGroupSystemRadioOption"]/android.widget.TextView'
+
     class ThemeDarkRadioButton:
         type = AppiumBy.ANDROID_UIAUTOMATOR
         value = 'new UiSelector().resourceId("ThemeRadioGroupDarkRadioOption")'
 
+    class ThemeDarkRadioButtonLabel:
+        type = AppiumBy.XPATH
+        value = '//android.view.View[@resource-id="ThemeRadioGroupDarkRadioOption"]/android.widget.TextView'
+
     class ThemeLightRadioButton:
         type = AppiumBy.ANDROID_UIAUTOMATOR
         value = 'new UiSelector().resourceId("ThemeRadioGroupLightRadioOption")'
+
+    class ThemeLightRadioButtonLabel:
+        type = AppiumBy.XPATH
+        value = '//android.view.View[@resource-id="ThemeRadioGroupLightRadioOption"]/android.widget.TextView'
 
     # Locale Radio Buttons
     class LocaleEnRadioButton:
         type = AppiumBy.ANDROID_UIAUTOMATOR
         value = 'new UiSelector().resourceId("LocaleRadioGroupEnglishRadioOption")'
 
+    class LocaleEnRadioButtonLabel:
+        type = AppiumBy.XPATH
+        value = '//android.view.View[@resource-id="LocaleRadioGroupEnglishRadioOption"]/android.widget.TextView'
+
     class LocaleRuRadioButton:
         type = AppiumBy.ANDROID_UIAUTOMATOR
         value = 'new UiSelector().resourceId("LocaleRadioGroupRussianRadioOption")'
 
+    class LocaleRuRadioButtonLabel:
+        type = AppiumBy.XPATH
+        value = '//android.view.View[@resource-id="LocaleRadioGroupRussianRadioOption"]/android.widget.TextView'
+
     class LocaleKkRadioButton:
         type = AppiumBy.ANDROID_UIAUTOMATOR
         value = 'new UiSelector().resourceId("LocaleRadioGroupKazakhRadioOption")'
+
+    class LocaleKkRadioButtonLabel:
+        type = AppiumBy.XPATH
+        value = '//android.view.View[@resource-id="LocaleRadioGroupKazakhRadioOption"]/android.widget.TextView'
 
 
 class SettingsScreenOperations:
