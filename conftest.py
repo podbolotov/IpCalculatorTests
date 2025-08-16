@@ -55,7 +55,7 @@ def localized_strings(appium_driver, request):
 def restart_before(appium_driver, request):
     appium_driver.terminate_app(appium_driver.capabilities['appPackage'])
     appium_driver.activate_app(appium_driver.capabilities['appPackage'])
-    allure.attach("Приложение перезапускается перед началом этого теста.")
+    allure.attach("Приложение перезапускается перед началом этого теста", "Описание предусловия")
     yield
 
 
@@ -65,7 +65,7 @@ def restart_after(appium_driver, request):
     yield
     appium_driver.terminate_app(appium_driver.capabilities['appPackage'])
     appium_driver.activate_app(appium_driver.capabilities['appPackage'])
-    allure.attach("Приложение перезапускается после окончания этого теста.")
+    allure.attach("Приложение перезапускается после окончания этого теста", "Описание пост-условия")
 
 
 @pytest.fixture(scope="function")

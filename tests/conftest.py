@@ -1,3 +1,5 @@
+from typing import Any, Generator
+
 import pytest
 import allure
 
@@ -8,7 +10,7 @@ from lib.ui.screens.settings_screen import SettingsScreenOperations
 
 @pytest.fixture(scope="function")
 @allure.title("Загрузка локаторов и методов экрана «Калькулятор»")
-def calc_screen(appium_driver) -> CalcScreenOperations:
+def calc_screen(appium_driver) -> Generator[CalcScreenOperations, Any, None]:
     """
     Данная фикстура инициализирует класс операций экрана "Калькулятор"
     и предоставляет доступ к его методам.
@@ -22,7 +24,7 @@ def calc_screen(appium_driver) -> CalcScreenOperations:
 
 @pytest.fixture(scope="function")
 @allure.title("Загрузка локаторов и методов экрана «Настройки»")
-def settings_screen(appium_driver) -> SettingsScreenOperations:
+def settings_screen(appium_driver) -> Generator[SettingsScreenOperations, Any, None]:
     """
     Данная фикстура инициализирует класс операций экрана "Настройки"
     и предоставляет доступ к его методам.
@@ -36,7 +38,7 @@ def settings_screen(appium_driver) -> SettingsScreenOperations:
 
 @pytest.fixture(scope="function")
 @allure.title("Загрузка локаторов и методов нижней навигационной панели")
-def bottom_navigation_bar(appium_driver) -> BottomNavbarOperations:
+def bottom_navigation_bar(appium_driver) -> Generator[BottomNavbarOperations, Any, None]:
     """
     Данная фикстура инициализирует класс операций нижней навигационной панели
     и предоставляет доступ к его методам.
