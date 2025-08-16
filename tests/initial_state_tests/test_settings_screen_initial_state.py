@@ -7,10 +7,11 @@ from lib.ui.screens.settings_screen import SettingsScreenLocators
 @allure.parent_suite("Тесты пользовательского интерфейса")
 @allure.suite("Тесты изначального состояния приложения")
 @allure.sub_suite("Состояние экрана «Настройки»")
+@allure.severity(severity_level=allure.severity_level.CRITICAL)
+@allure.tag("Fast")
 class TestSettingsScreenInitialState:
 
     @allure.title("Изначальное состояние экрана")
-    @allure.severity(severity_level="NORMAL")
     def test_settings_screen_initial_state(self, appium_driver, open_settings_screen, settings_screen):
         # Ищем на заголовок секции "Выбор темы оформления"
         theme_setting_title = settings_screen.find(SettingsScreenLocators.ThemeSettingsSectionTitle)

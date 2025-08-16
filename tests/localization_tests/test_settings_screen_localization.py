@@ -11,10 +11,9 @@ from lib.ui.screens.settings_screen import SettingsScreenLocators
 @allure.sub_suite("Локализация экрана «Настройки»")
 @pytest.mark.parametrize('localized_strings', [AvailableLocales.EN, AvailableLocales.RU, AvailableLocales.KK],
                          indirect=True)
-@allure.severity(severity_level="NORMAL")
+@allure.severity(severity_level=allure.severity_level.CRITICAL)
 @allure.tag("Fast")
 class TestSettingsScreenLocalization:
-
 
     def test_settings_screen_localization(self, appium_driver, localized_strings, non_translatable_strings,
                                           settings_screen, open_settings_screen):

@@ -9,18 +9,18 @@ from tests.calculation_tests.addon_reusable_calculation_tests import reusable_ca
 
 @allure.parent_suite("Функциональные тесты")
 @allure.suite("Тесты вычислений")
+@allure.tag("Slow")
 class TestMainCalculationTests:
-    @allure.severity(severity_level=allure.severity_level.CRITICAL)
-    @pytest.mark.parametrize('iterations', range(1, 4))
+    @allure.severity(severity_level=allure.severity_level.NORMAL)
+    @pytest.mark.parametrize('iterations', range(1, 21))
     @allure.sub_suite("Вычисление случайных подсетей")
-    @allure.tag("Slow")
     def test_random_ip_calculations(self, appium_driver, iterations, calc_screen):
         # Генерируем случайный валидный IP
         generated_ip = generate_valid_ip()
 
         allure.dynamic.title(f"Вычисление случайной подсети ({generated_ip})")
         allure.dynamic.description(
-            f"Данный тест проводит тестирование вычисления случайной подсети в 3 итераций.\n\n"
+            f"Данный тест проводит тестирование вычисления случайной подсети в 20 итераций.\n\n"
             f"Номер итерации: {iterations}.\n"
             f"Тестируемая подсеть: {generated_ip}.\n\n"
             f"Данный тест проверяет только корректность вычислений, тестирование локализации или темы оформления в его "
@@ -51,7 +51,6 @@ class TestMainCalculationTests:
 
     @allure.severity(severity_level=allure.severity_level.CRITICAL)
     @allure.sub_suite("Вычисление предопределённых сетей")
-    @allure.tag("Fast")
     @pytest.mark.parametrize('case', get_target_networks_cases())
     def test_pattern_calculations(self, appium_driver, case, calc_screen):
         # Получаем тестируемый IP из кейса

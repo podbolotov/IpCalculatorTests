@@ -1,8 +1,8 @@
 import allure
 import pytest
 
-from lib.data.localized_strings import AvailableLocales, LocalizedStrings
-from lib.tools.screenshotter import attach_element_screenshot, make_and_attach_screenshot
+from lib.data.localized_strings import AvailableLocales
+from lib.tools.screenshotter import make_and_attach_screenshot
 from lib.ui.components.bottom_navigation_bar import BottomNavbarLocators
 from lib.ui.screens.calc_screen import CalcScreenLocators
 
@@ -12,10 +12,10 @@ from lib.ui.screens.calc_screen import CalcScreenLocators
 @allure.sub_suite("Локализация экрана «Калькулятор» и нижней навигационной панели")
 @pytest.mark.parametrize('localized_strings', [AvailableLocales.EN, AvailableLocales.RU, AvailableLocales.KK],
                          indirect=True)
+@allure.severity(severity_level=allure.severity_level.CRITICAL)
 @allure.tag("Fast")
 class TestCalcAndBottomNavigationBarLocalization:
 
-    @allure.severity(severity_level="NORMAL")
     def test_calc_screen_and_navbar_empty_state_localization(self, appium_driver, restart_before, localized_strings,
                                                              calc_screen, bottom_navigation_bar):
         allure.dynamic.title(f"Локализованные значения изначального состояния для локализации {localized_strings.LANG}")
@@ -73,7 +73,6 @@ class TestCalcAndBottomNavigationBarLocalization:
                 assert settings_navbar_button_label.text == localized_strings.bottom_navigation_bar_settings, make_and_attach_screenshot(
                     appium_driver)
 
-    @allure.severity(severity_level="NORMAL")
     def test_calc_screen_cidr_list_title_localization(self, appium_driver, restart_before, localized_strings,
                                                       calc_screen):
         allure.dynamic.title(
@@ -88,7 +87,6 @@ class TestCalcAndBottomNavigationBarLocalization:
             assert cidr_window_title.text == localized_strings.calculator_subnet_mask_dialog_title, \
                 make_and_attach_screenshot(appium_driver)
 
-    @allure.severity(severity_level="NORMAL")
     def test_calc_screen_result_localization(self, appium_driver, restart_before, localized_strings,
                                              calc_screen, bottom_navigation_bar):
         allure.dynamic.title(f"Локализованные значения результатов вычисления для локализации {localized_strings.LANG}")

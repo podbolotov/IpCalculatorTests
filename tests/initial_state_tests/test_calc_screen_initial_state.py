@@ -1,7 +1,5 @@
 import allure
-import pytest
 
-from lib.data.localized_strings import AvailableLocales, LocalizedStrings
 from lib.tools.screenshotter import attach_element_screenshot, make_and_attach_screenshot
 from lib.ui.components.bottom_navigation_bar import BottomNavbarLocators
 from lib.ui.screens.calc_screen import CalcScreenLocators
@@ -10,13 +8,13 @@ from lib.ui.screens.calc_screen import CalcScreenLocators
 @allure.parent_suite("Тесты пользовательского интерфейса")
 @allure.suite("Тесты изначального состояния приложения")
 @allure.sub_suite("Состояние экрана «Калькулятор»")
+@allure.severity(severity_level=allure.severity_level.CRITICAL)
+@allure.tag("Fast")
 class TestCalcScreenInitialState:
 
     @allure.title("Изначальное состояние экрана")
-    @allure.severity(severity_level="NORMAL")
     def test_calc_screen_initial_state(self, appium_driver, restart_before, calc_screen,
                                        bottom_navigation_bar):
-
         # Ищем на экране изображение пустого состояния
         empty_state_image = calc_screen.find(CalcScreenLocators.PlaceholderImage)
         with allure.step("Изображение пустого состояния отображается на экране"):
@@ -28,7 +26,6 @@ class TestCalcScreenInitialState:
         with allure.step("Текст пустого состояния отображается на экране"):
             assert empty_state_title.is_displayed() == True, make_and_attach_screenshot(appium_driver)
             attach_element_screenshot(empty_state_title)
-
 
         # Ищем на экране контейнер с полями ввода IP адреса
         ip_address_inputs_container = calc_screen.find(CalcScreenLocators.IPInputContainer)
@@ -72,7 +69,6 @@ class TestCalcScreenInitialState:
 
             with allure.step("Кнопка «Вычислить» активна"):
                 assert calculate_button.is_enabled() == True, make_and_attach_screenshot(appium_driver)
-
 
         # Ищем на экране кнопку "Поделиться"
         share_button = calc_screen.find(CalcScreenLocators.ShareButton)

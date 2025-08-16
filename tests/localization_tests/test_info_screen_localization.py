@@ -11,7 +11,7 @@ from lib.ui.screens.info_screen import InfoScreenLocators
 @allure.sub_suite("Локализация экрана «Инфо»")
 @pytest.mark.parametrize('localized_strings', [AvailableLocales.EN, AvailableLocales.RU, AvailableLocales.KK],
                          indirect=True)
-@allure.severity(severity_level="NORMAL")
+@allure.severity(severity_level=allure.severity_level.CRITICAL)
 @allure.tag("Fast")
 class TestInfoScreenLocalization:
 
