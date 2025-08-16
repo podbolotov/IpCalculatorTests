@@ -18,6 +18,12 @@ class TestSettingsScreenLocalization:
     def test_settings_screen_localization(self, appium_driver, localized_strings, non_translatable_strings,
                                           settings_screen, open_settings_screen):
         allure.dynamic.title(f"Локализованные значения элементов экрана для локализации {localized_strings.LANG}")
+        allure.dynamic.description(
+            f"Данный тест проверяет локализацию всех текстовых строк, отображаемых на экране «Настройки» для "
+            f"локализации {localized_strings.LANG}.\n\n"
+            "При проверке локализации каждого элемента к отчёту прикрепляется его локализованное значение.\n"
+            "При возникновении ошибки к отчёту будет приложен скриншот всего экрана."
+        )
 
         with allure.step(f"Заголовок секции «Выбор темы оформления» соответствует локализации "
                          f"({localized_strings.LANG})"):

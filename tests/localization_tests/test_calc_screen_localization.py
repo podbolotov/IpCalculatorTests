@@ -19,6 +19,13 @@ class TestCalcAndBottomNavigationBarLocalization:
     def test_calc_screen_and_navbar_empty_state_localization(self, appium_driver, restart_before, localized_strings,
                                                              calc_screen, bottom_navigation_bar):
         allure.dynamic.title(f"Локализованные значения изначального состояния для локализации {localized_strings.LANG}")
+        allure.dynamic.description(
+            f"Данный тест проверяет локализацию всех текстовых строк, отображаемых на экране «Калькулятор» и на нижней "
+            f"навигационной панели для локализации {localized_strings.LANG} до осуществления вычислений.\n\n"
+            "При проверке локализации каждого элемента к отчёту прикрепляется его локализованное значение.\n"
+            "При возникновении ошибки к отчёту будет приложен скриншот всего экрана."
+        )
+
         with allure.step("Локализованные значения экрана «Калькулятор»"):
             # Ищем на экране текст пустого состояния
             empty_state_title = calc_screen.find(CalcScreenLocators.PlaceholderText)
@@ -77,6 +84,12 @@ class TestCalcAndBottomNavigationBarLocalization:
                                                       calc_screen):
         allure.dynamic.title(
             f"Локализованное значение заголовка окна выбора CIDR для локализации {localized_strings.LANG}")
+        allure.dynamic.description(
+            f"Данный тест проверяет локализацию заголовка модального окна выбора маски подсети (CIDR) "
+            f"для локализации {localized_strings.LANG}.\n\n"
+            "При проверке локализации элемента к отчёту прикрепляется его локализованное значение.\n"
+            "При возникновении ошибки к отчёту будет приложен скриншот всего экрана."
+        )
 
         calc_screen.find(CalcScreenLocators.CIDRButton).click()
 
@@ -88,9 +101,14 @@ class TestCalcAndBottomNavigationBarLocalization:
                 make_and_attach_screenshot(appium_driver)
 
     def test_calc_screen_result_localization(self, appium_driver, restart_before, localized_strings,
-                                             calc_screen, bottom_navigation_bar):
+                                             calc_screen):
         allure.dynamic.title(f"Локализованные значения результатов вычисления для локализации {localized_strings.LANG}")
-
+        allure.dynamic.description(
+            f"Данный тест проверяет локализацию всех текстовых строк, отображаемых в результатах вычисления для "
+            f"локализации {localized_strings.LANG}.\n\n"
+            "При проверке локализации каждого элемента к отчёту прикрепляется его локализованное значение.\n"
+            "При возникновении ошибки к отчёту будет приложен скриншот всего экрана."
+        )
         # Тапаем по кнопке "Вычислить" для появления результатов вычисления
         calc_screen.find(CalcScreenLocators.CalculateButtonLabel).click()
 

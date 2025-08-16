@@ -17,7 +17,12 @@ class TestInfoScreenLocalization:
 
     def test_info_screen_localization(self, appium_driver, localized_strings, info_screen, open_info_screen):
         allure.dynamic.title(f"Локализованные значения элементов экрана для локализации {localized_strings.LANG}")
-
+        allure.dynamic.description(
+            f"Данный тест проверяет локализацию всех текстовых строк, отображаемых на экране «Инфо» для "
+            f"локализации {localized_strings.LANG}.\n\n"
+            "При проверке локализации каждого элемента к отчёту прикрепляется его локализованное значение.\n"
+            "При возникновении ошибки к отчёту будет приложен скриншот всего экрана."
+        )
         with allure.step(f"Текст кнопки «Открыть страницу на GitHub» соответствует локализации "
                          f"({localized_strings.LANG})"):
             open_github_button_label = info_screen.find(InfoScreenLocators.GitHubPageButton).text
