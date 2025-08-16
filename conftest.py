@@ -76,6 +76,14 @@ def restart_after(appium_driver, request):
 
 
 @pytest.fixture(scope="function")
+@allure.title("Открыть экран «Инфо»")
+def open_info_screen(appium_driver, bottom_navigation_bar):
+    allure.attach("Приложение открывает экран «Инфо» перед началом этого теста", "Описание предусловия")
+    bottom_navigation_bar.open_info_screen()
+    yield
+
+
+@pytest.fixture(scope="function")
 @allure.title("Открыть экран «Настройки»")
 def open_settings_screen(appium_driver, bottom_navigation_bar, request):
     allure.attach("Приложение открывает экран «Настройки» перед началом этого теста", "Описание предусловия")

@@ -5,6 +5,7 @@ import allure
 
 from lib.ui.components.bottom_navigation_bar import BottomNavbarOperations
 from lib.ui.screens.calc_screen import CalcScreenOperations
+from lib.ui.screens.info_screen import InfoScreenOperations
 from lib.ui.screens.settings_screen import SettingsScreenOperations
 
 
@@ -20,6 +21,20 @@ def calc_screen(appium_driver) -> Generator[CalcScreenOperations, Any, None]:
     """
     _calc_screen = CalcScreenOperations(appium_driver)
     yield _calc_screen
+
+
+@pytest.fixture(scope="function")
+@allure.title("Загрузка локаторов и методов экрана «Инфо»")
+def info_screen(appium_driver) -> Generator[InfoScreenOperations, Any, None]:
+    """
+    Данная фикстура инициализирует класс операций экрана "Инфо"
+    и предоставляет доступ к его методам.
+
+    :param appium_driver: Фикстура, предоставляющая драйвер.
+    :return: Класс операций экрана "Инфо".
+    """
+    _info_screen = InfoScreenOperations(appium_driver)
+    yield _info_screen
 
 
 @pytest.fixture(scope="function")
