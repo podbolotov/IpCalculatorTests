@@ -40,6 +40,8 @@ class LocalizedStrings:
         info_privacy_policy = "Read privacy policy"
         info_go_to_github = "Open GitHub page"
 
+        privacy_policy_url = 'github.com/developer-kaczmarek/IpCalculator/wiki/Privacy-policy'
+
         settings_language = "Language"
         settings_theme = "Theme"
         settings_theme_system = "System"
@@ -77,6 +79,8 @@ class LocalizedStrings:
         info_privacy_policy = "Прочитать политику конфиденциальности"
         info_go_to_github = "Открыть страницу на Github"
 
+        privacy_policy_url = 'github.com/developer-kaczmarek/IpCalculator/wiki/Политика-конфиденциальности'
+
         settings_language = "Язык"
         settings_theme = "Тема"
         settings_theme_system = "Системная"
@@ -113,6 +117,8 @@ class LocalizedStrings:
         info_send_email = "Әзірлеушімен байланысу"
         info_privacy_policy = "Құпиялық саясатын оқу"
         info_go_to_github = "Github сілтемесіне өту"
+
+        privacy_policy_url = 'github.com/developer-kaczmarek/IpCalculator/wiki/Құпиялылық-саясаты'
 
         settings_language = "Тіл"
         settings_theme = "Кейіп"

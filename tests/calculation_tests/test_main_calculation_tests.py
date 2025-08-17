@@ -9,7 +9,7 @@ from tests.calculation_tests.addon_reusable_calculation_tests import reusable_ca
 
 @allure.parent_suite("Функциональные тесты")
 @allure.suite("Тесты вычислений")
-@allure.tag("Slow")
+@allure.tag("Slow", "Stable")
 class TestMainCalculationTests:
     @allure.severity(severity_level=allure.severity_level.NORMAL)
     @pytest.mark.parametrize('iterations', range(1, 21))

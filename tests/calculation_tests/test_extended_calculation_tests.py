@@ -29,7 +29,7 @@ class TestExtendedCalculationTests:
         f"на стороне тестового фреймворка.\n\n"
         f"При возникновении ошибки к отчёту будет приложен скриншот экрана на момент регистрации ошибки."
     )
-    @allure.tag("Fast")
+    @allure.tag("Fast", "Stable")
     def test_calculation_with_prefilled_ip(self, appium_driver, calc_screen):
         # Нажимаем на кнопку "Вычислить"
         calc_screen.find(CalcScreenLocators.CalculateButtonLabel).click()
@@ -41,7 +41,7 @@ class TestExtendedCalculationTests:
             appium_driver=appium_driver
         )
 
-    @allure.tag("Slow")
+    @allure.tag("Slow", "Stable")
     @pytest.mark.parametrize('case', get_partial_filled_ips_cases())
     def test_calculation_with_partial_filled_ip(self, appium_driver, restart_before, case, calc_screen):
         case_title = case.case_title

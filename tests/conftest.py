@@ -7,6 +7,7 @@ from lib.ui.components.bottom_navigation_bar import BottomNavbarOperations
 from lib.ui.screens.calc_screen import CalcScreenOperations
 from lib.ui.screens.info_screen import InfoScreenOperations
 from lib.ui.screens.settings_screen import SettingsScreenOperations
+from lib.ui.side_applications.google_chrome import GoogleChromeOperations
 
 
 @pytest.fixture(scope="function")
@@ -63,3 +64,16 @@ def bottom_navigation_bar(appium_driver) -> Generator[BottomNavbarOperations, An
     """
     _bottom_navigation_bar = BottomNavbarOperations(appium_driver)
     yield _bottom_navigation_bar
+
+
+@pytest.fixture(scope="function")
+@allure.title("Загрузка локаторов и методов браузера Google Chrome")
+def google_chrome(appium_driver) -> Generator[GoogleChromeOperations, Any, None]:
+    """
+    Данная фикстура инициализирует класс операций браузера Google Chrome.
+
+    :param appium_driver: Фикстура, предоставляющая драйвер.
+    :return: Класс операций браузера Google Chrome.
+    """
+    _google_chrome = GoogleChromeOperations(appium_driver)
+    yield _google_chrome

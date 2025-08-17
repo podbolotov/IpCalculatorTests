@@ -8,7 +8,7 @@ from lib.ui.screens.info_screen import InfoScreenLocators
 @allure.suite("Тесты изначального состояния приложения")
 @allure.sub_suite("Состояние экрана «Инфо»")
 @allure.severity(severity_level=allure.severity_level.CRITICAL)
-@allure.tag("Fast")
+@allure.tag("Fast", "Stable")
 class TestInfoScreenInitialState:
 
     @allure.title("Изначальное состояние экрана")

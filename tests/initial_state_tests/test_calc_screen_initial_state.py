@@ -9,7 +9,7 @@ from lib.ui.screens.calc_screen import CalcScreenLocators
 @allure.suite("Тесты изначального состояния приложения")
 @allure.sub_suite("Состояние экрана «Калькулятор»")
 @allure.severity(severity_level=allure.severity_level.CRITICAL)
-@allure.tag("Fast")
+@allure.tag("Fast", "Stable")
 class TestCalcScreenInitialState:
 
     @allure.title("Изначальное состояние экрана")

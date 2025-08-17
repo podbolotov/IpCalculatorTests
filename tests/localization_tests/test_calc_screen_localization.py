@@ -13,7 +13,7 @@ from lib.ui.screens.calc_screen import CalcScreenLocators
 @pytest.mark.parametrize('localized_strings', [AvailableLocales.EN, AvailableLocales.RU, AvailableLocales.KK],
                          indirect=True)
 @allure.severity(severity_level=allure.severity_level.CRITICAL)
-@allure.tag("Fast")
+@allure.tag("Fast", "Stable")
 class TestCalcAndBottomNavigationBarLocalization:
 
     def test_calc_screen_and_navbar_empty_state_localization(self, appium_driver, restart_before, localized_strings,

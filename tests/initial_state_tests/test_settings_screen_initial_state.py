@@ -8,7 +8,7 @@ from lib.ui.screens.settings_screen import SettingsScreenLocators
 @allure.suite("Тесты изначального состояния приложения")
 @allure.sub_suite("Состояние экрана «Настройки»")
 @allure.severity(severity_level=allure.severity_level.CRITICAL)
-@allure.tag("Fast")
+@allure.tag("Fast", "Stable")
 class TestSettingsScreenInitialState:
 
     @allure.title("Изначальное состояние экрана")

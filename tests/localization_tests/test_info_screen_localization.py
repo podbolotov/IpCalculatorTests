@@ -12,7 +12,7 @@ from lib.ui.screens.info_screen import InfoScreenLocators
 @pytest.mark.parametrize('localized_strings', [AvailableLocales.EN, AvailableLocales.RU, AvailableLocales.KK],
                          indirect=True)
 @allure.severity(severity_level=allure.severity_level.CRITICAL)
-@allure.tag("Fast")
+@allure.tag("Fast", "Stable")
 class TestInfoScreenLocalization:
 
     def test_info_screen_localization(self, appium_driver, localized_strings, info_screen, open_info_screen):
