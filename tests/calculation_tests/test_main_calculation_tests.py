@@ -37,7 +37,7 @@ class TestMainCalculationTests:
         )
 
         # Вводим сгенерированный IP в приложение
-        calc_screen.enter_ip_address(address=generated_ip, driver=appium_driver)
+        calc_screen.enter_ip_address(address=generated_ip)
 
         # Нажимаем на кнопку "Вычислить"
         calc_screen.find(CalcScreenLocators.CalculateButtonLabel).click()
@@ -60,7 +60,7 @@ class TestMainCalculationTests:
         allure.dynamic.description(case.description)
 
         # Вводим сгенерированный IP в приложение
-        calc_screen.enter_ip_address(address=case_ip, driver=appium_driver)
+        calc_screen.enter_ip_address(address=case_ip)
 
         # Нажимаем на кнопку "Вычислить"
         calc_screen.find(CalcScreenLocators.CalculateButtonLabel).click()

@@ -444,7 +444,7 @@ class CalcScreenOperations:
             print(f"Элемент {looked_object_locator.__name__} найден.")
             print("\033[92m" + "Операция поиска завершена успешно." + "\033[0m")
 
-    def enter_ip_address(self, driver, address: str = "192.168.0.1/24"):
+    def enter_ip_address(self, address: str = "192.168.0.1/24"):
 
         ip, *cidr = address.split("/")
 
@@ -462,7 +462,7 @@ class CalcScreenOperations:
         for digit in oc1:
             digit_as_int = int(digit)
             sleep(0.1)
-            driver.press_keycode(AndroidKey.__getattribute__(AndroidKey, f'DIGIT_{digit_as_int}'))
+            self.driver.press_keycode(AndroidKey.__getattribute__(AndroidKey, f'DIGIT_{digit_as_int}'))
 
         oc2_input = self.find(CalcScreenLocators.IPInputSecondOctet)
         oc2_input.click()
@@ -471,7 +471,7 @@ class CalcScreenOperations:
         for digit in oc2:
             digit_as_int = int(digit)
             sleep(0.1)
-            driver.press_keycode(AndroidKey.__getattribute__(AndroidKey, f'DIGIT_{digit_as_int}'))
+            self.driver.press_keycode(AndroidKey.__getattribute__(AndroidKey, f'DIGIT_{digit_as_int}'))
 
         oc3_input = self.find(CalcScreenLocators.IPInputThirdOctet)
         oc3_input.click()
@@ -480,7 +480,7 @@ class CalcScreenOperations:
         for digit in oc3:
             digit_as_int = int(digit)
             sleep(0.1)
-            driver.press_keycode(AndroidKey.__getattribute__(AndroidKey, f'DIGIT_{digit_as_int}'))
+            self.driver.press_keycode(AndroidKey.__getattribute__(AndroidKey, f'DIGIT_{digit_as_int}'))
 
         oc4_input = self.find(CalcScreenLocators.IPInputFourthOctet)
         oc4_input.click()
@@ -489,7 +489,7 @@ class CalcScreenOperations:
         for digit in oc4:
             digit_as_int = int(digit)
             sleep(0.1)
-            driver.press_keycode(AndroidKey.__getattribute__(AndroidKey, f'DIGIT_{digit_as_int}'))
+            self.driver.press_keycode(AndroidKey.__getattribute__(AndroidKey, f'DIGIT_{digit_as_int}'))
 
         cidr_locator = CalcScreenLocators.__getattribute__(CalcScreenLocators, f'Subnet{subnet}')
 
