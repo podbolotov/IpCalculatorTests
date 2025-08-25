@@ -15,6 +15,3 @@ class Variables:
 
     APP_PATH = environ.get("APP_PATH") or os.path.realpath("./app-debug.apk")
     ''' Путь к установочному файлу приложения '''
-
-    ORIENTATION = environ.get("ORIENTATION") or 'PORTRAIT'
-    ''' Путь к установочному файлу приложения '''
