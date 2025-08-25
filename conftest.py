@@ -1,13 +1,28 @@
+import platform
 import allure
 import pytest
 from conf.capabilities import ApplicationCapabilities
 from lib.data.localized_strings import AvailableLocales, LocalizedStrings
 from appium import webdriver
-import os
+from conf.variables import Variables
 
 from lib.data.non_translatable_strings import NonTranslatableStrings
 from lib.ui.components.bottom_navigation_bar import BottomNavbarOperations
 from lib.ui.screens.settings_screen import SettingsScreenOperations
+
+
+@pytest.fixture(scope="session", autouse=True)
+@allure.title("Запись информации об окружении в отчёт")
+def report_environment_properties_generation():
+    f = open("allure-results/environment.properties", "a", encoding='utf-8')
+    current_platform = platform.system()
+    f.write(f"""
+    Appium\\ server={Variables.APPIUM_SERVER}
+    Device={Variables.DEVICE_NAME}
+    Framework\\ platform={current_platform}
+    Python\\ version={platform.python_version()}
+    """)
+    f.close()
 
 
 @pytest.fixture(scope="class")
@@ -17,7 +32,7 @@ def appium_driver():
     Данная фикстура предоставляет драйвер для взаимодействия с мобильным приложением
     """
     driver_options = ApplicationCapabilities.get()
-    appium_server_url = os.environ.get("APPIUM_SERVER") or 'http://localhost:4723'
+    appium_server_url = Variables.APPIUM_SERVER
     driver = webdriver.Remote(
         command_executor=appium_server_url, options=driver_options, )
     driver.implicitly_wait(60)
