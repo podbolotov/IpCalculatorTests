@@ -8,6 +8,7 @@ from lib.ui.screens.calc_screen import CalcScreenOperations
 from lib.ui.screens.info_screen import InfoScreenOperations
 from lib.ui.screens.settings_screen import SettingsScreenOperations
 from lib.ui.side_applications.google_chrome import GoogleChromeOperations
+from lib.ui.side_applications.system_share_dialog import SystemShareOperations
 
 
 @pytest.fixture(scope="function")
@@ -77,3 +78,16 @@ def google_chrome(appium_driver) -> Generator[GoogleChromeOperations, Any, None]
     """
     _google_chrome = GoogleChromeOperations(appium_driver)
     yield _google_chrome
+
+
+@pytest.fixture(scope="function")
+@allure.title("Загрузка локаторов и методов системного диалога \"Поделиться\"")
+def system_share_dialog(appium_driver) -> Generator[SystemShareOperations, Any, None]:
+    """
+    Данная фикстура инициализирует класс операций системного диалога "Поделиться"
+
+    :param appium_driver: Фикстура, предоставляющая драйвер.
+    :return: Класс операций системного диалога "Поделиться".
+    """
+    _system_share_dialog = SystemShareOperations(appium_driver)
+    yield _system_share_dialog

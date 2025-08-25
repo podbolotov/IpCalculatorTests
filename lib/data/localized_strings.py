@@ -1,5 +1,7 @@
 from enum import Enum, auto
 
+from lib.data.non_translatable_strings import NonTranslatableStrings
+
 
 class AvailableLocales(Enum):
     EN = auto()
@@ -41,6 +43,8 @@ class LocalizedStrings:
         info_go_to_github = "Open GitHub page"
 
         privacy_policy_url = 'github.com/developer-kaczmarek/IpCalculator/wiki/Privacy-policy'
+        app_share_message = 'Try IP Calculator. Google Play link: ' \
+                            + NonTranslatableStrings.google_play_app_link
 
         settings_language = "Language"
         settings_theme = "Theme"
@@ -80,6 +84,8 @@ class LocalizedStrings:
         info_go_to_github = "Открыть страницу на Github"
 
         privacy_policy_url = 'github.com/developer-kaczmarek/IpCalculator/wiki/Политика-конфиденциальности'
+        app_share_message = 'Попробуй IP Калькулятор. Ссылка на Google Play: ' \
+                            + NonTranslatableStrings.google_play_app_link
 
         settings_language = "Язык"
         settings_theme = "Тема"
@@ -119,6 +125,8 @@ class LocalizedStrings:
         info_go_to_github = "Github сілтемесіне өту"
 
         privacy_policy_url = 'github.com/developer-kaczmarek/IpCalculator/wiki/Құпиялылық-саясаты'
+        app_share_message = 'IP Калькуляторды қолданып көр. Google Play сілтемесі: ' \
+                            + NonTranslatableStrings.google_play_app_link
 
         settings_language = "Тіл"
         settings_theme = "Кейіп"
