@@ -50,18 +50,24 @@ def reusable_calculation_tests(ip, calc_screen_operations, calc_screen_locators,
             assert network_mask == local_calculation_result.network_mask, make_and_attach_screenshot(appium_driver)
 
         with allure.step("Обратная маска соответствует вычисленной локально"):
+            calc_screen_operations.scroll_to_list_item(
+                calc_screen_locators.ResultWildcardMaskValue, calc_screen_locators.ResultListContainer)
             wildcard_mask = calc_screen_operations.find(calc_screen_locators.ResultWildcardMaskValue).text
             allure.attach(wildcard_mask, "Полученное значение")
             assert wildcard_mask == local_calculation_result.wildcard_mask, make_and_attach_screenshot(
                 appium_driver)
 
         with allure.step("Адрес сети соответствует вычисленному локально"):
+            calc_screen_operations.scroll_to_list_item(
+                calc_screen_locators.ResultNetworkIPAddressValue, calc_screen_locators.ResultListContainer)
             network_address = calc_screen_operations.find(calc_screen_locators.ResultNetworkIPAddressValue).text
             allure.attach(network_address, "Полученное значение")
             assert network_address == local_calculation_result.network_address, make_and_attach_screenshot(
                 appium_driver)
 
         with allure.step("Широковещательный адрес соответствует вычисленному локально"):
+            calc_screen_operations.scroll_to_list_item(
+                calc_screen_locators.ResultBroadcastIPAddressValue, calc_screen_locators.ResultListContainer)
             broadcast_address = calc_screen_operations.find(calc_screen_locators.ResultBroadcastIPAddressValue).text
             allure.attach(broadcast_address, "Полученное значение")
             assert broadcast_address == local_calculation_result.broadcast_address, make_and_attach_screenshot(

@@ -1,8 +1,10 @@
+from logging import exception
 from time import sleep
 
 from appium.webdriver.common.appiumby import AppiumBy
 from appium.webdriver.extensions.android.nativekey import AndroidKey
 from selenium.common import NoSuchElementException
+from selenium.webdriver import ActionChains
 
 from lib.tools.element_finders import find_by_locator
 from lib.tools.screenshotter import make_and_attach_screenshot
@@ -422,7 +424,7 @@ class CalcScreenOperations:
                 value=scroll_locator
             )
             tries = tries + 1
-            if tries == 4:
+            if tries == 8:
                 scroll_locator = scroll_up
                 new_direction = ScrollDirections.UP
                 if initial_direction == ScrollDirections.UP:
@@ -430,7 +432,7 @@ class CalcScreenOperations:
                     new_direction = ScrollDirections.DOWN
                 print(f"\033[93mПробуем поменять свайпов направление на обратное. "
                       f"Новое направление: {new_direction}.\033[0m")
-            if tries == 7:
+            if tries == 15:
                 break
 
         if not is_element_displayed(looked_object_locator):
@@ -444,6 +446,33 @@ class CalcScreenOperations:
             print(f"Элемент {looked_object_locator.__name__} найден.")
             print("\033[92m" + "Операция поиска завершена успешно." + "\033[0m")
 
+    def _select_cidr(self, locator):
+        cidr_button = self.find(CalcScreenLocators.CIDRButton)
+        cidr_button.click()
+
+        self.scroll_to_list_item(locator, CalcScreenLocators.CidrListContainer)
+
+        drag = self.find(CalcScreenLocators.CidrListContainer)
+        ActionChains(self.driver).click_and_hold(drag).move_by_offset(xoffset=10,
+                                                                      yoffset=-80).release().perform()
+        subnet_list_item = self.find(locator)
+        subnet_list_item.click()
+
+        def _is_cidr_window_displayed(cidr_window_title_locator):
+            try:
+                self.driver.implicitly_wait(2)
+                return find_by_locator(self.driver, cidr_window_title_locator).is_displayed()
+            except NoSuchElementException:
+                return False
+            finally:
+                self.driver.implicitly_wait(60)
+
+        while _is_cidr_window_displayed(CalcScreenLocators.CidrWindowTitle):
+            print(f"\033[93mКажется, после попытки клика окно выбора CIDR не было закрыто.\n"
+                  f"Попробуем кликнуть снова.\033[0m")
+            sleep(1)
+            subnet_list_item.click()
+
     def enter_ip_address(self, address: str = "192.168.0.1/24"):
 
         ip, *cidr = address.split("/")
@@ -456,9 +485,8 @@ class CalcScreenOperations:
 
         oc1_input = self.find(CalcScreenLocators.IPInputFirstOctet)
         oc1_input.click()
-        # oc1_input.send_keys(oc1)
-
         oc1_input.clear()
+        oc1_input.click()
         for digit in oc1:
             digit_as_int = int(digit)
             sleep(0.1)
@@ -466,8 +494,8 @@ class CalcScreenOperations:
 
         oc2_input = self.find(CalcScreenLocators.IPInputSecondOctet)
         oc2_input.click()
-        # oc2_input.send_keys(oc2)
         oc2_input.clear()
+        oc2_input.click()
         for digit in oc2:
             digit_as_int = int(digit)
             sleep(0.1)
@@ -475,8 +503,8 @@ class CalcScreenOperations:
 
         oc3_input = self.find(CalcScreenLocators.IPInputThirdOctet)
         oc3_input.click()
-        # oc3_input.send_keys(oc3)
         oc3_input.clear()
+        oc3_input.click()
         for digit in oc3:
             digit_as_int = int(digit)
             sleep(0.1)
@@ -484,22 +512,15 @@ class CalcScreenOperations:
 
         oc4_input = self.find(CalcScreenLocators.IPInputFourthOctet)
         oc4_input.click()
-        # oc4_input.send_keys(oc4)
         oc4_input.clear()
+        oc4_input.click()
         for digit in oc4:
             digit_as_int = int(digit)
             sleep(0.1)
             self.driver.press_keycode(AndroidKey.__getattribute__(AndroidKey, f'DIGIT_{digit_as_int}'))
 
         cidr_locator = CalcScreenLocators.__getattribute__(CalcScreenLocators, f'Subnet{subnet}')
-
-        cidr_button = self.find(CalcScreenLocators.CIDRButton)
-        cidr_button.click()
-
-        self.scroll_to_list_item(cidr_locator, CalcScreenLocators.CidrListContainer)
-
-        subnet_list_item = self.find(cidr_locator)
-        subnet_list_item.click()
+        self._select_cidr(cidr_locator)
 
     def partial_fill_ip_address(self, driver, oc1=None, oc2=None, oc3=None, oc4=None, cidr=None):
         """
@@ -509,6 +530,7 @@ class CalcScreenOperations:
             oc1_input = self.find(CalcScreenLocators.IPInputFirstOctet)
             oc1_input.click()
             oc1_input.clear()
+            oc1_input.click()
             for digit in oc1:
                 digit_as_int = int(digit)
                 sleep(0.1)
@@ -518,6 +540,7 @@ class CalcScreenOperations:
             oc2_input = self.find(CalcScreenLocators.IPInputSecondOctet)
             oc2_input.click()
             oc2_input.clear()
+            oc2_input.click()
             for digit in oc2:
                 digit_as_int = int(digit)
                 sleep(0.1)
@@ -527,6 +550,7 @@ class CalcScreenOperations:
             oc3_input = self.find(CalcScreenLocators.IPInputThirdOctet)
             oc3_input.click()
             oc3_input.clear()
+            oc3_input.click()
             for digit in oc3:
                 digit_as_int = int(digit)
                 sleep(0.1)
@@ -536,6 +560,7 @@ class CalcScreenOperations:
             oc4_input = self.find(CalcScreenLocators.IPInputFourthOctet)
             oc4_input.click()
             oc4_input.clear()
+            oc4_input.click()
             for digit in oc4:
                 digit_as_int = int(digit)
                 sleep(0.1)
@@ -544,10 +569,4 @@ class CalcScreenOperations:
         if cidr:
             cidr_locator = CalcScreenLocators.__getattribute__(CalcScreenLocators, f'Subnet{cidr}')
 
-            cidr_button = self.find(CalcScreenLocators.CIDRButton)
-            cidr_button.click()
-
-            self.scroll_to_list_item(cidr_locator, CalcScreenLocators.CidrListContainer)
-
-            subnet_list_item = self.find(cidr_locator)
-            subnet_list_item.click()
+            self._select_cidr(cidr_locator)

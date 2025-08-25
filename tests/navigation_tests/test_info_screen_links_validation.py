@@ -2,7 +2,7 @@ import allure
 import pytest
 
 from lib.data.localized_strings import AvailableLocales
-from lib.tools.screenshotter import attach_element_screenshot, make_and_attach_screenshot
+from lib.tools.screenshotter import make_and_attach_screenshot
 from lib.ui.screens.info_screen import InfoScreenLocators
 from lib.ui.side_applications.google_chrome import GoogleChromeLocators
 
