@@ -1,4 +1,6 @@
 import platform
+from time import sleep
+
 import allure
 import pytest
 from conf.capabilities import ApplicationCapabilities
@@ -56,6 +58,7 @@ def localized_strings(appium_driver, request):
     ss = SettingsScreenOperations(appium_driver)
     ss.set_locale(current_locale)
 
+    sleep(1)
     appium_driver.terminate_app(appium_driver.capabilities['appPackage'])
     appium_driver.activate_app(appium_driver.capabilities['appPackage'])
 

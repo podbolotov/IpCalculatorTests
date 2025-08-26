@@ -1,5 +1,6 @@
 import os
 from os import environ
+from lib.tools.app_path import get_apk_file_path
 
 
 class Variables:
@@ -13,5 +14,5 @@ class Variables:
     DEVICE_NAME = environ.get("DEVICE_NAME") or 'Android 11'
     ''' Целевое устройство для исполнения тестов '''
 
-    APP_PATH = environ.get("APP_PATH") or os.path.realpath("./app-debug.apk")
+    APP_PATH = environ.get("APP_PATH") or get_apk_file_path()
     ''' Путь к установочному файлу приложения '''
